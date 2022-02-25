@@ -1,8 +1,93 @@
-<!-- -->
+<!--  -->
 
+<app-header></app-header>
+
+<button (click)="getFunz('suka')">alert</button> <!-- come fare un bottone con evento (click) -->
+<button (click)="getData('button click event')">warn</button>
+<br /><br /> <!-- crea uno spazio di una riga -->
+<input type="text" #box1 placeholder="upbox" (keyup)="getData(box1.value)"/> <!-- crea un box per scrivere, keyup event mi aplica la funzione getData con parametro box1.value(il valore di quelo che si è scritto nel box) -->
+<br /><br />
+<input type="text" #box2 placeholder="downbox" (keydown)="getData(box2.value)"/>
+<br /><br />
+<input type="text" #box3 placeholder="blurbox" (blur)="getData(box3.value)"/>
+<br /><br />
+<input type="text" #box4 placeholder="inputbox" (input)="getData(box4.value)"/>
+<br /><br />
+<input type="text" #box5 placeholder="enter a text"/>
+<button (click)="getValue(box5.value)">display text</button>
+<p>il testo del box è: {{displayVal}}</p>
+
+
+<h1 (mouseover)="getData('mouseOVER')">mouseover</h1>
+<h1 (mouseleave)="getData('mouseLEAVE')">mouseleave</h1>
+
+<button (click)="counter('minus')">--</button>
+<p>count: {{count}}</p>
+<button (click)="counter('add')">++</button>
+<app-login></app-login>
+<app-top></app-top> <!-- richiama il component top e "lo mette a video"-->
+<app-menu></app-menu> <!-- displayed in order -->
+
+<div class="container">
+  <!-- not sure che cazzo succede qua -->
+  <router-outlet>cia0
+    <div><a routerLink="/">ciao</a></div>
+  </router-outlet>
+</div>
 <!-- interpolation va usata con {{}}, da usare sono su component.html-->
-<!-- le doppie {} servono per accedere a name in app.components.ts -->
+<!-- le doppie {} servono per accedere a "name" in app.components.ts -->
 <h1 class="{{data}}">Hola, {{name}}</h1> <!-- si può usare {{}} con la classe per accedere alla proprety, con o senza "" -->
+
+<h1 *ngIf="show; then ifBlock else elseBlock" ></h1> <!-- se la proprety show è true, verrà usato il msg in h1 oppure quello a cui punta "then" se c'è, altrimenti quello che ha come id elseBlock --> <!-- show può essere anche non booleano, es: se show="yes" allora *ngIf="show=='yes';  -->
+
+<ng-template #ifBlock>
+<h1>If condition</h1>
+</ng-template> 
+
+<ng-template #elseBlock>
+  <h1>Else condition</h1>
+</ng-template> 
+
+<ng-template [ngIf]="color==='red'"> <!-- multiple else if condition -->
+  <h1 style="color: red;">color red</h1>
+</ng-template> 
+<ng-template [ngIf]="color==='green'">
+  <h1 style="color: green;">color green</h1>
+</ng-template> 
+<ng-template [ngIf]="color==='blue'">
+  <h1 style="color: blue;">color blue</h1>
+</ng-template> 
+
+<div [ngSwitch]="color"> <!-- switch case -->
+  <h1 *ngSwitchCase="'red'" style="color: red">red</h1>
+  <h1 *ngSwitchCase="'green'" style="color: green">green</h1>
+  <h1 *ngSwitchCase="'blue'" style="color: blue">blue</h1>
+  <h1 *ngSwitchCase="'purple'" style="color: purple">purple</h1>
+  <h1 *ngSwitchCase="'yellow'" style="color: yellow">yellow</h1>
+  <h1 *ngSwitchDefault>black color</h1>
+</div>
+<!-- for loop in .html -- angular for loop -->
+<h3 *ngFor="let item of users">name is: {{item}}</h3> 
+<!-- for loop in .ts -- js for loop -->
+<h3 *ngFor="let item of users">Details are: {{item.name}} -- {{item.email}} -- {{item.phone}}</h3> 
+
+<!-- NESTED FOR LOOP -->
+<ul *ngFor ="let user of users"> <!-- first for loop -->
+    <li>{{user.name}}</li>
+    <li>{{user.phone}}</li>
+    <li>{{user.email}}</li>
+
+  <ul *ngFor="let account of user.accounts"> <!-- nested for loop -->
+    <li>{{account}}</li>
+  </ul>
+</ul>
+
+<!-- (DOUBLE) STYLE BINDING -->
+<h1 [style.color]="color" [style.backgroundColor]="bgColor">{{name}}</h1>
+<button (click)="updateColor()">update color</button>
+
+
+
 <h1>{{getVal()}}</h1> 
 <h1>{{2+2+2+2+1}}</h1> 
 <h1>{{num==100}}</h1> <!-- ritorna true se num è effettivamente = 100 -->
